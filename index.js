@@ -37,4 +37,3 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
-console.log("Retry build"); // ← この1行を追加
