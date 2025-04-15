@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: puppeteer-render-api
+    name: puppeteer-api
     env: node
     plan: starter
-    buildCommand: npm install puppeteer
+    buildCommand: npm install puppeteer@22.8.2
     startCommand: node index.js
