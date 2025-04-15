@@ -1,5 +1,5 @@
 {
-  "name": "puppeteer-render-api",
+  "name": "puppeteer-api",
   "version": "1.0.0",
   "description": "A headless browser API using Puppeteer on Render",
   "main": "index.js",
