@@ -2,6 +2,6 @@ services:
   - type: web
     name: puppeteer-render-api
     env: node
-    plan: free
-    buildCommand: npm install
+    plan: starter
+    buildCommand: npm install puppeteer
     startCommand: node index.js
