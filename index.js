@@ -37,3 +37,5 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
+console.log("Puppeteer executable path:", puppeteer.executablePath());
+
