@@ -4,6 +4,9 @@ services:
     env: node
     plan: starter
     buildCommand: |
+      echo '👷 Installing puppeteer...'
       npm install
+      echo '🐧 Installing Chromium...'
       npx puppeteer browsers install chrome --path=/opt/render/.cache/puppeteer
+      echo '✅ Chromium install complete!'
     startCommand: node index.js
