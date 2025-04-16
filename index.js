@@ -8,13 +8,10 @@ console.log('Puppeteer executable path:', executablePath);
 const app = express();
 const PORT = process.env.PORT || 8080; // Fly.io 推奨ポート
 
-app.get('/scrape', async (req, res) => {
-  const targetUrl = req.query.url;
-  if (!targetUrl) {
-    return res.status(400).send('Missing ?url= parameter.');
-  }
+let browser;
 
-  const browser = await puppeteer.launch({
+(async () => {
+  browser = await puppeteer.launch({
     headless: 'new',
     executablePath: executablePath,
     args: [
@@ -25,19 +22,26 @@ app.get('/scrape', async (req, res) => {
       '--single-process'
     ]
   });
+  console.log('✅ Puppeteer browser launched');
+})();
+
+app.get('/scrape', async (req, res) => {
+  const targetUrl = req.query.url;
+  if (!targetUrl) {
+    return res.status(400).send('Missing ?url= parameter.');
+  }
 
   try {
     const page = await browser.newPage();
     await page.goto(targetUrl, {
-      waitUntil: 'networkidle2',  // より緩やかなネットワーク待機条件
-      timeout: 60000              // タイムアウト60秒に延長
+      waitUntil: 'domcontentloaded', // 軽量な読み込み完了条件
+      timeout: 45000                  // タイムアウトも調整済み
     });
     const content = await page.content();
+    await page.close();
     res.send(content);
   } catch (error) {
     res.status(500).send('Error: ' + error.message);
-  } finally {
-    await browser.close();
   }
 });
 
