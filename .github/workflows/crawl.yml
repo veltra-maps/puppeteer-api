@@ -1,10 +1,12 @@
-name: Run JSON Puppeteer Test
+name: Run Puppeteer Crawler
 
 on:
-  workflow_dispatch:  # 手動実行専用
+  schedule:
+    - cron: "0 18 * * *"  # JST 毎日03:00（UTC18:00）
+  workflow_dispatch:
 
 jobs:
-  crawl-json:
+  crawl:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,5 +20,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run json crawler script
-        run: node json_crawler.js
+      - name: Run crawler script
+        run: node crawler.js
+
+      - name: Commit results
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add crawler_files/*.json
+          git commit -m "Add crawler results from $(date -u +'%Y-%m-%dT%H:%M:%SZ')" || echo "Nothing to commit"
+          git push
