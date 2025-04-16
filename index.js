@@ -2,7 +2,8 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 
 // 明示的にChromeの実行パスを指定
-const executablePath = '/opt/render/.cache/puppeteer/chrome/linux-127.0.6533.88/chrome';
+const executablePath = '/opt/render/.cache/puppeteer/chrome/linux-127.0.6533.88/chrome-linux64/chrome';
+
 console.log('Puppeteer executable path:', executablePath);
 
 const app = express();
