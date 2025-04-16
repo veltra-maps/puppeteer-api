@@ -1,8 +1,9 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 
-// 👇 ログを最初に出す（Expressより前のタイミングで出力）
-console.log("Puppeteer executable path:", puppeteer.executablePath());
+// 明示的にChromeの実行パスを指定
+const executablePath = '/opt/render/.cache/puppeteer/chrome/linux-127.0.6533.88/chrome';
+console.log('Puppeteer executable path:', executablePath);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.get('/scrape', async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: 'new',
+    executablePath: executablePath,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
