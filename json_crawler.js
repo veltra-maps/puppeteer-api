@@ -12,16 +12,13 @@ const puppeteer = require('puppeteer');
     referer: 'https://www.cruisemapper.com/ships/MSC-Bellissima-1359'
   });
 
-  await page.goto('https://www.cruisemapper.com/ships/cruise.json?id=4026182', {
+  const response = await page.goto('https://www.cruisemapper.com/ships/cruise.json?id=4026182', {
     waitUntil: 'networkidle2',
     timeout: 15000
   });
 
-  const json = await page.evaluate(() => {
-    return JSON.parse(document.querySelector("pre").innerText);
-  });
-
-  console.log(JSON.stringify(json, null, 2));
+  const body = await response.text();
+  console.log(body);
 
   await browser.close();
 })();
