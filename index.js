@@ -1,12 +1,12 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 
-// 明示的にChromeの実行パスを直接記述
+// 明示的にChromeの実行パスを直接記述（Fly.io 用パス）
 const executablePath = '/app/.cache/puppeteer/chrome/linux-127.0.6533.88/chrome-linux64/chrome';
 console.log('Puppeteer executable path:', executablePath);
 
 const app = express();
-const PORT = process.env.PORT || 8080; // ← Fly.ioの期待に合わせて8080に変更
+const PORT = process.env.PORT || 8080; // Fly.io 推奨ポート
 
 app.get('/scrape', async (req, res) => {
   const targetUrl = req.query.url;
@@ -28,7 +28,10 @@ app.get('/scrape', async (req, res) => {
 
   try {
     const page = await browser.newPage();
-    await page.goto(targetUrl, { waitUntil: 'networkidle0' });
+    await page.goto(targetUrl, {
+      waitUntil: 'networkidle2',  // より緩やかなネットワーク待機条件
+      timeout: 60000              // タイムアウト60秒に延長
+    });
     const content = await page.content();
     res.send(content);
   } catch (error) {
