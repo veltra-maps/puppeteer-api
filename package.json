@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "npx puppeteer browsers install chrome --path=/opt/render/.cache/puppeteer && echo '✅ Chromium installed successfully!'"
+    "postinstall": "npx puppeteer browsers install chrome --path=/opt/render/.cache/puppeteer && chmod +x /opt/render/.cache/puppeteer/chrome/linux-127.0.6533.88/chrome-linux64/chrome && echo '✅ Chrome ready'"
   },
   "dependencies": {
     "express": "^4.18.2",
     "puppeteer": "^22.8.2"
   }
 }
+
