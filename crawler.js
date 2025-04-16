@@ -5,10 +5,9 @@ const path = require('path');
 (async () => {
   const browser = await puppeteer.launch({
     headless: 'new',
-    executablePath: '/app/.cache/puppeteer/chrome/linux-127.0.6533.88/chrome-linux64/chrome',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
-
+  
   const page = await browser.newPage();
   await page.goto('https://www.cruisemapper.com/ships/MSC-Bellissima-1359', {
     waitUntil: 'domcontentloaded',
