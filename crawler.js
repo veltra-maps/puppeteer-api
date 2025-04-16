@@ -10,9 +10,11 @@ const path = require('path');
   
   const page = await browser.newPage();
   await page.goto('https://www.cruisemapper.com/ships/MSC-Bellissima-1359', {
-    waitUntil: 'domcontentloaded',
+    waitUntil: 'networkidle2',
     timeout: 60000
   });
+
+  await page.waitForSelector('tr.cruiseRow', { timeout: 10000 });
 
   const firstRow = await page.$('tr.cruiseRow');
   if (firstRow) {
