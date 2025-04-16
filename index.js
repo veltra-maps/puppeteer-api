@@ -1,6 +1,9 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 
+// 👇 ログを最初に出す（Expressより前のタイミングで出力）
+console.log("Puppeteer executable path:", puppeteer.executablePath());
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -36,6 +39,3 @@ app.get('/scrape', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
-console.log("Puppeteer executable path:", puppeteer.executablePath());
-
