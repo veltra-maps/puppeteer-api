@@ -6,7 +6,7 @@ const executablePath = '/opt/render/.cache/puppeteer/chrome/linux-127.0.6533.88/
 console.log('Puppeteer executable path:', executablePath);
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080; // ← Fly.ioの期待に合わせて8080に変更
 
 app.get('/scrape', async (req, res) => {
   const targetUrl = req.query.url;
