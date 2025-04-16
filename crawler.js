@@ -14,6 +14,9 @@ const path = require('path');
     timeout: 60000
   });
 
+  // JS描画を待つために任意の遅延を追加
+  await page.waitForTimeout(5000);
+
   await page.waitForSelector('tr.cruiseRow', { timeout: 10000 });
 
   const firstRow = await page.$('tr.cruiseRow');
